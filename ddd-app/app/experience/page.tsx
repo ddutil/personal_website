@@ -3,8 +3,13 @@ import { useState } from 'react'
 
 export default function Experience() {
   const pageTitle = "Experience";
-  const [activeTab, setActiveTab] = useState('work')
-  const cardStyle = "w-full bg-slate-900/40 border border-slate-700/50 p-8 rounded-xl mb-8";
+
+  const tabs = [
+    { id: 'work', label: 'Work History' },
+    { id: 'projects', label: 'Personal Projects' },
+    { id: 'education', label: 'Education & Certs' },
+  ]
+  const [activeTab, setActiveTab] = useState(tabs[0].id)
 
   const workHistory = [
     {
@@ -66,6 +71,19 @@ export default function Experience() {
     }
   ]
 
+  const educationAndCerts = [
+    {
+      institution: "University of Maryland, College Park",
+      credential: "Bachelor of Science — Computer Science",
+      date: "May 2015",
+    },
+    {
+      institution: "Amazon Web Services",
+      credential: "AWS Certified Cloud Practitioner",
+      date: "December 2023",
+    },
+  ]
+
   return (
     <main className="max-w-5xl mx-auto min-h-screen text-slate-200">
       <h1 id="experienceTitle" className="pb-30 text-violet-300 text-6xl md:text-8xl font-extrabold text-center tracking-tight">
@@ -75,30 +93,20 @@ export default function Experience() {
       
       <div className={`w-250 flex flex-col`}>
         <div className="flex w-full">
-        <button 
-          id="workHistoryTab"
-          onClick={() => setActiveTab('work')}
-          className={`w-1/2 py-5 text-2xl font-bold rounded-t-2xl transition-all duration-200
-            ${activeTab === 'work' 
-              ? 'bg-slate-800 border-t border-x border-slate-700 shadow-[0_-4px_10px_rgba(0,0,0,0.2)]' 
-              : 'text-slate-500 bg-transparent border-b border-slate-700 hover:bg-slate-900/40 hover:text-slate-300'}`}
-        >
-          Work History
-        </button>
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`w-1/3 py-5 text-2xl font-bold rounded-t-2xl transition-all duration-200
+                ${activeTab === tab.id
+                  ? 'bg-slate-800 border-t border-x border-slate-700 shadow-[0_-4px_10px_rgba(0,0,0,0.2)]'
+                  : 'text-slate-500 bg-transparent border-b border-slate-700 hover:bg-slate-900/40 hover:text-slate-300'}`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
 
-        <button
-          id="personalProjectsTab" 
-          onClick={() => setActiveTab('projects')}
-          className={`w-1/2 py-5 text-2xl font-bold rounded-t-2xl transition-all duration-200
-            ${activeTab === 'projects' 
-              ? 'bg-slate-800  border-t border-x border-slate-700 shadow-[0_-4px_10px_rgba(0,0,0,0.2)]' 
-              : 'text-slate-500 bg-transparent border-b border-slate-700 hover:bg-slate-900/40 hover:text-slate-300'}`}
-        >
-          Personal Projects
-        </button>
-      </div>
-
-        {/* CONTENT BOX - Forced to fill the 900px exactly */}
         <div className="w-full bg-slate-800 p-10 rounded-b-3xl border-x border-b border-slate-700 shadow-2xl min-h-175">
           
           {activeTab === 'work' ? (
@@ -144,7 +152,7 @@ export default function Experience() {
                 </div>
               ))}
             </div>
-          ) : (
+          ) : activeTab === 'projects' ? (
             <div className="w-full">
               
               <div className="w-full bg-slate-900/40 border border-slate-700/50 p-8 rounded-xl mb-8">
@@ -154,6 +162,19 @@ export default function Experience() {
                   Coming Soon!
                 </p>
               </div>
+            </div>
+          ) : (
+            <div className="w-full space-y-8">
+              {/* Education & Certifications */}
+              {educationAndCerts.map((item, idx) => (
+                <div key={idx} className="w-full bg-slate-900/40 border border-slate-700/50 p-8 rounded-xl mb-8">
+                  <div className="flex justify-between items-baseline mb-4 border-b border-slate-800 pb-4">
+                    <h4 className="text-3xl font-extrabold text-violet-300">{item.institution}</h4>
+                    <span className="text-slate-500 text-lg italic">{item.date}</span>
+                  </div>
+                  <p className="text-2xl font-bold text-blue-300">{item.credential}</p>
+                </div>
+              ))}
             </div>
           )}
         </div>

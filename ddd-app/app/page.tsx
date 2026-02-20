@@ -14,16 +14,39 @@ export default function Home() {
       content: "10+ years spanning Quality Assurance and Software Engineering"
     },
     {
-      title: "Tech Stack",
-      content: "Automated testing experience with Playwright, Selenium, and Postman(UI, API, & DB)"
-    },
-    {
-      title: "Language-Agnostic",
-      content: "Experience with JavaScript, Java, Python, C#, SQL"
+      title: "Open To",
+      content: "Remote, QA/Automation Engineering roles starting immediately"
     },
     {
       title: "Traits",
       content: "Versatile, Meticulous, Curious, and Collaborative"
+    }
+  ]
+
+  const skillCategories = [
+    {
+      category: "Test Automation",
+      skills: ["Playwright (JS)", "Selenium", "Postman", "Page Object Model (POM)"]
+    },
+    {
+      category: "Languages",
+      skills: ["Java", "JavaScript", "C#", "Python", "SQL"]
+    },
+    {
+      category: "CI/CD & Infrastructure",
+      skills: ["Git / GitHub", "Harness", "Jenkins", "AWS Exposure"]
+    },
+    {
+      category: "SDLC & Test Management",
+      skills: ["Jira", "Azure DevOps", "QMetry", "Agile / Scrum", "STLC"]
+    },
+    {
+      category: "Other Tools",
+      skills: ["GitHub Copilot", "Datadog", "Confluence", "Swagger"]
+    },
+    {
+      category: "Quality Strategy",
+      skills: ["Shift-Left", "Full-Stack Validation", "Root Cause Analysis", "Defect Management"]
     }
   ]
   
@@ -41,13 +64,32 @@ export default function Home() {
       </div>
 
       {/* display summary grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl w-full text-lg">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl w-full text-lg">
         {summaryGridNotes.map((note, idx) => (
           <div key={idx} className="p-6 bg-slate-900/50 rounded-xl border border-slate-800">
-            <h3 className="font-bold text-violet-300 mb-2">{note.title}</h3>
+            <h3 className="font-bold text-2xl text-violet-300 mb-2">{note.title}</h3>
             <p>{note.content}</p>
           </div>
         ))}
+      </div>
+
+      {/* skills section */}
+      <div className="max-w-7xl w-full mt-8 p-8 bg-slate-900/50 rounded-xl border border-slate-800">
+        <h3 className="font-bold text-violet-300 text-2xl mb-6">Skills</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {skillCategories.map((cat, idx) => (
+            <div key={idx}>
+              <p className="text-sm font-semibold uppercase tracking-widest text-slate-400 mb-3">{cat.category}</p>
+              <div className="flex flex-wrap gap-2">
+                {cat.skills.map((skill, sIdx) => (
+                  <span key={sIdx} className="px-3 py-1 text-sm bg-slate-800 border border-slate-700 text-slate-200 rounded-full">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* action buttons */}
