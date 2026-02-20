@@ -1,6 +1,12 @@
 import Link from 'next/link';
 
 export default function Navbar() {
+  const navLinks = [
+    { name: "Experience", href: "/experience" },
+    { name: "Test Results", href: "/test-results" },
+    { name: "Contact", href: "/contact" },
+  ];
+
   return (
     <nav className="flex items-center justify-between px-8 py-4 bg-slate-800 border-b border-white/10 text-teal-200">
       {/* Logo/Name */}
@@ -10,9 +16,9 @@ export default function Navbar() {
 
       {/* Links */}
       <div className="flex px-15 columns-2 text-inherit font-bold divide-x divide-white/10">
-        <Link href="/about" className="px-4 hover:text-orange-200 transition-colors">About Me</Link>
-        <Link href="/test-results" className="px-4 hover:text-orange-200 transition-colors">Test Results</Link>
-        <Link href="/contact" className="px-4 hover:text-orange-200 transition-colors">Contact</Link>
+        {navLinks.map((tab, idx) => (
+          <Link key={idx} href={tab.href} className="px-4 hover:text-orange-200 transition-colors">{tab.name}</Link>
+        ))}
       </div>
     </nav>
   );
