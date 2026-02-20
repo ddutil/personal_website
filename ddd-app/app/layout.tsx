@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/navbar";
+import { PostHogProvider } from "./providers/PostHogProvider";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -28,10 +29,12 @@ export default function RootLayout({
       <body
         className={`antialiased`}
       >
-        <Navbar />
-        <div className="flex min-h-screen flex-col items-center pt-24 bg-slate-800 text-teal-200">
-          {children}
-        </div>
+        <PostHogProvider>
+          <Navbar />
+          <div className="flex min-h-screen flex-col items-center pt-24 bg-slate-800 text-teal-200">
+            {children}
+          </div>
+        </PostHogProvider>
       </body>
     </html>
   );

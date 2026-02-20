@@ -1,6 +1,11 @@
+'use client'
+import { usePostHog } from 'posthog-js/react'
+
 export default function Home() {
   const displayName = "Dan Dutil";
   const jobTitle = "QA & Automation Engineer";
+  const posthog = usePostHog()
+
   const resumeLink = "/Dutil_resume_2026.pdf";
   const linkedInLink = "https://www.linkedin.com/in/dan-dutil-b15161a5/";
   const summaryGridNotes = [
@@ -50,6 +55,7 @@ export default function Home() {
         <a
           href={resumeLink}
           download="Dan_Dutil_Resume.pdf"
+          onClick={() => posthog?.capture('resume_downloaded')}
           className="px-6 py-4 bg-violet-500 hover:bg-violet-600 text-slate-200 font-bold rounded-full shadow-lg shadow-violet-900/50"
         >
           Get My Resume
@@ -58,6 +64,7 @@ export default function Home() {
           href={linkedInLink}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => posthog?.capture('linkedin_clicked')}
           className="px-6 py-4 bg-violet-500 hover:bg-violet-600 text-slate-200 font-bold rounded-full shadow-lg shadow-violet-900/50"
         >
           View LinkedIn
