@@ -1,18 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Noto_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/navbar";
 import { PostHogProvider } from "./providers/PostHogProvider";
 
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
-
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
+const notoSans = Noto_Sans({
+  variable: "--font-noto-sans",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "Dan Dutil",
@@ -25,9 +20,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={notoSans.variable}>
       <body
-        className={`antialiased`}
+        className={`antialiased font-(family-name:--font-noto-sans)`}
       >
         <PostHogProvider>
           <Navbar />
