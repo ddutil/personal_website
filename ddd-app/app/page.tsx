@@ -21,7 +21,7 @@ export default function Home() {
       title: "Traits",
       content: "Versatile, Meticulous, Curious, and Collaborative"
     }
-  ]
+  ];
 
   const skillCategories = [
     {
@@ -48,12 +48,14 @@ export default function Home() {
       category: "Quality Strategy",
       skills: ["Shift-Left", "Full-Stack Validation", "Root Cause Analysis", "Defect Management"]
     }
-  ]
+  ];
+
+  const buttonStyle = "min-w-40 text-center px-6 py-4 bg-violet-500 hover:bg-violet-600 text-slate-200 font-bold rounded-full shadow-lg shadow-violet-900/50";
   
 
   return (
     <main className="flex min-h-screen flex-col items-center text-slate-200">
-      <div className="text-center mb-12">
+      <div className="text-center mb-10">
         {/* display name and job title */}
         <h1 className="text-violet-300 text-6xl md:text-8xl font-extrabold tracking-tight">
           {displayName}
@@ -61,6 +63,34 @@ export default function Home() {
         <h2 className="text-2xl md:text-3xl font-semibold mt-4 tracking-tight">
           {jobTitle}
         </h2>
+      </div>
+
+      {/* action buttons */}
+      <div className="flex gap-4 mb-10">
+        <a
+          href={resumeLink}
+          download="Dan_Dutil_Resume.pdf"
+          onClick={() => posthog?.capture('resume_downloaded')}
+          className={buttonStyle}
+        >
+          Get Resume
+        </a>
+        <a
+          href={linkedInLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => posthog?.capture('linkedin_clicked')}
+          className={buttonStyle}
+        >
+          View LinkedIn
+        </a>
+        <a
+          href="/contact"
+          onClick={() => posthog?.capture('contact_clicked')}
+          className={buttonStyle}
+        >
+          Email Me
+        </a>
       </div>
 
       {/* display summary grid */}
@@ -90,27 +120,6 @@ export default function Home() {
             </div>
           ))}
         </div>
-      </div>
-
-      {/* action buttons */}
-      <div className="flex gap-4 mt-12">
-        <a
-          href={resumeLink}
-          download="Dan_Dutil_Resume.pdf"
-          onClick={() => posthog?.capture('resume_downloaded')}
-          className="px-6 py-4 bg-violet-500 hover:bg-violet-600 text-slate-200 font-bold rounded-full shadow-lg shadow-violet-900/50"
-        >
-          Get My Resume
-        </a>
-        <a
-          href={linkedInLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => posthog?.capture('linkedin_clicked')}
-          className="px-6 py-4 bg-violet-500 hover:bg-violet-600 text-slate-200 font-bold rounded-full shadow-lg shadow-violet-900/50"
-        >
-          View LinkedIn
-        </a>
       </div>
     </main>
   );
