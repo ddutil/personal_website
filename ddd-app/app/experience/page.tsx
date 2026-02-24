@@ -91,7 +91,7 @@ export default function Experience() {
       </h1>
       
       
-      <div className={`w-250 flex flex-col`}>
+      <div className={`w-full lg:w-250 mx-auto flex flex-col`}>
         <div className="flex w-full">
           {tabs.map((tab) => (
             <button
@@ -107,7 +107,7 @@ export default function Experience() {
           ))}
         </div>
 
-        <div className="w-full bg-slate-800 p-10 rounded-b-3xl border-x border-b border-slate-700 shadow-2xl min-h-175">
+        <div className="w-full bg-slate-800 p-4 md:p-10 rounded-b-3xl border-x border-b border-slate-700 shadow-[inset_0_-4px_12px_rgba(0,0,0,0.3)] min-h-175">
           
           {activeTab === 'work' ? (
             <div className="w-full">

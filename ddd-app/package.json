@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@upstash/ratelimit": "^2.0.8",
+    "@upstash/redis": "^1.36.2",
     "next": "16.1.6",
     "posthog-js": "^1.351.4",
     "react": "19.2.3",

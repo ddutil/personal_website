@@ -18,7 +18,7 @@ export default function Navbar() {
       </div>
 
       {/* Links */}
-      <div className="flex px-15 columns-2 text-inherit font-bold divide-x divide-white/5">
+      <div className="flex text-inherit font-bold divide-x divide-white/5">
         {navLinks.map((tab, idx) => (
           <Link key={idx} href={tab.href} className="px-4 py-1.5 hover:text-violet-400 transition-colors">{tab.name}</Link>
         ))}

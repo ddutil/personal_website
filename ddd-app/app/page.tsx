@@ -54,7 +54,7 @@ export default function Home() {
   
 
   return (
-    <main className="flex min-h-screen flex-col items-center text-slate-200">
+    <main className="flex min-h-screen flex-col items-center text-slate-200 px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-10">
         {/* display name and job title */}
         <h1 className="text-violet-300 text-6xl md:text-8xl font-extrabold tracking-tight">
@@ -66,7 +66,7 @@ export default function Home() {
       </div>
 
       {/* action buttons */}
-      <div className="flex gap-4 mb-10">
+      <div className="flex flex-col sm:flex-row gap-4 mb-10 w-full sm:w-auto px-6 sm:px-0">
         <a
           href={resumeLink}
           download="Dan_Dutil_Resume.pdf"
