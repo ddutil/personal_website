@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import GitHubStats from '../components/GitHubStats'
 
 export default function Experience() {
   const pageTitle = "Experience";
@@ -68,6 +69,24 @@ export default function Experience() {
           ]
         }
       ]
+    }
+  ]
+
+  const personalProjects = [
+    {
+      title: "This Website",
+      startDate: "February 2026",
+      endDate: "Present",
+      githubRepo: "ddutil/personal_website",
+      takeaways: "I built this site with zero prior web development experience. I picked up Next.js, TypeScript, React, and Tailwind CSS from scratch over the course of this project. What started as a simple portfolio turned into a genuine deep-dive into front-end development, UI/UX design, and full-stack architecture.",
+      bullets: [
+        "Engineered with Next.js (App Router) and Tailwind CSS, with a fully responsive layout optimized for both desktop and mobile",
+        "Integrated PostHog for product analytics to track real user behavior and page engagement",
+        "Built a custom contact form backed by Resend for email delivery and Upstash Redis for rate limiting to prevent spam",
+        "Leveraged GitHub Copilot throughout development for code generation, refactoring, and problem-solving",
+        "Invested significant effort in UI/UX design, iterating on layout, typography, and spacing across screen sizes",
+        "Open-source on GitHub — built as a living portfolio and personal playground for experimenting with modern web technologies",
+      ],
     }
   ]
 
@@ -153,15 +172,33 @@ export default function Experience() {
               ))}
             </div>
           ) : activeTab === 'projects' ? (
-            <div className="w-full">
+            <div className="w-full space-y-8">
               
-              <div className="w-full bg-slate-900/40 border border-slate-700/50 p-8 rounded-xl mb-8">
-                <h4 className="text-3xl font-bold text-violet-300">This Website</h4>
-                <p className="text-xl text-slate-300 mt-2"></p>
-                <p className="mt-6 text-slate-400 leading-relaxed">
-                  Coming Soon!
-                </p>
-              </div>
+              {/* Personal Projects */}
+              {personalProjects.map((project, idx) => (
+                <div key={idx} className="w-full bg-slate-900/40 border border-slate-700/50 p-8 rounded-xl mb-8">
+                  <div className="flex justify-between items-baseline mb-4 border-b border-slate-800 pb-4">
+                    <h4 className="text-3xl font-extrabold text-violet-300">{project.title}</h4>
+                    <span className="text-slate-500 text-lg italic">{project.startDate} — {project.endDate}</span>
+                  </div>
+                  <ul className="mt-4 space-y-3 text-slate-200 list-disc pl-5 leading-relaxed">
+                    {project.bullets.map((bullet, bIndex) => (
+                      <li key={bIndex}>{bullet}</li>
+                    ))}
+                  </ul>
+                  {/* GitHub Stats */}
+                  {'githubRepo' in project && project.githubRepo && (
+                    <GitHubStats repo={project.githubRepo} />
+                  )}
+                  {/* My Take */}
+                  {project.takeaways && (
+                    <div className="mt-6 py-4 border-y border-slate-700/60">
+                      <p className="text-xs font-semibold uppercase tracking-widest text-violet-400 mb-2">More Info</p>
+                      <p id={`projectTakeaways-${idx}`} className="text-slate-400 leading-relaxed italic">{project.takeaways}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
           ) : (
             <div className="w-full space-y-8">
