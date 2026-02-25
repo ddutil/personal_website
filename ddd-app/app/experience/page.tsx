@@ -37,7 +37,7 @@ export default function Experience() {
       ]
     },
     {
-      company: "Solers/Peraton",
+      company: "Solers / Peraton",
       startDate: "June 2015",
       endDate: "October 2023",
       stints: [
