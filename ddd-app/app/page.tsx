@@ -1,5 +1,6 @@
 'use client'
 import { usePostHog } from 'posthog-js/react'
+import { toTestId } from '../lib/utils'
 
 export default function Home() {
   const displayName = "Dan Dutil";
@@ -100,8 +101,8 @@ export default function Home() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl w-full text-lg">
         {summaryGridNotes.map((note, idx) => (
           <div key={idx} className="p-6 bg-slate-900/50 rounded-xl border border-slate-800">
-            <h3 data-testid={`home-summary-${idx}-title`} className="font-bold text-2xl text-violet-300 mb-2">{note.title}</h3>
-            <p data-testid={`home-summary-${idx}-content`}>{note.content}</p>
+            <h3 data-testid={`home-summary-${toTestId(note.title)}-title`} className="font-bold text-2xl text-violet-300 mb-2">{note.title}</h3>
+            <p data-testid={`home-summary-${toTestId(note.title)}-content`}>{note.content}</p>
           </div>
         ))}
       </div>
@@ -112,10 +113,10 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {skillCategories.map((cat, idx) => (
             <div key={idx}>
-              <p data-testid={`home-skill-category-${idx}`} className="text-sm font-semibold uppercase tracking-widest text-slate-400 mb-3">{cat.category}</p>
+              <p data-testid={`home-skill-category-${toTestId(cat.category)}`} className="text-sm font-semibold uppercase tracking-widest text-slate-400 mb-3">{cat.category}</p>
               <div className="flex flex-wrap gap-2">
                 {cat.skills.map((skill, sIdx) => (
-                  <span key={sIdx} data-testid={`home-skill-${idx}-${sIdx}`} className="px-3 py-1 text-sm bg-slate-800 border border-slate-700 text-slate-200 rounded-full">
+                  <span key={sIdx} data-testid={`home-skill-${toTestId(cat.category)}-${sIdx}`} className="px-3 py-1 text-sm bg-slate-800 border border-slate-700 text-slate-200 rounded-full">
                     {skill}
                   </span>
                 ))}
