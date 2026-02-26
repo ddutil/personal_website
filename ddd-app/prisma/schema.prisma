@@ -29,6 +29,9 @@ model VisitorSession {
   visitCount  Int      @default(1)
   lastPage    String?
   ipHash      String?
+  country     String?
+  region      String?
+  city        String?
 
   @@map("visitor_sessions")
 }
