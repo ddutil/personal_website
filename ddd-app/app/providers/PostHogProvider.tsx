@@ -37,7 +37,9 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
         maskAllInputs: false,
       },
       loaded: (ph) => {
-        if (process.env.NODE_ENV === 'development') ph.debug()
+        if (process.env.NODE_ENV === 'development') {
+          ph.opt_out_capturing()
+        }
       },
     })
   }, [])
