@@ -8,6 +8,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ skipped: true }, { status: 200 })
     }
 
+    const userAgent = req.headers.get('user-agent') ?? ''
+    if (!userAgent.includes('Mozilla')) {
+      return NextResponse.json({ skipped: true }, { status: 200 })
+    }
+
     const visitorId = req.cookies.get('visitor_id')?.value
     if (!visitorId) {
       return NextResponse.json({ error: 'No visitor ID' }, { status: 400 })
