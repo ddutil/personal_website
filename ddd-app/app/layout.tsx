@@ -3,6 +3,7 @@ import { Noto_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/navbar";
 import { PostHogProvider } from "./providers/PostHogProvider";
+import SessionTracker from "./components/SessionTracker";
 
 const notoSans = Noto_Sans({
   variable: "--font-noto-sans",
@@ -43,6 +44,7 @@ export default function RootLayout({
       >
         <PostHogProvider>
           <Navbar />
+          <SessionTracker />
           <div className="flex min-h-screen flex-col items-center pt-24 bg-slate-800 text-teal-200">
             {children}
           </div>
