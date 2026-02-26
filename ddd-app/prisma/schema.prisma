@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model ContactSubmission {
+  id          Int      @id @default(autoincrement())
+  firstName   String
+  lastName    String
+  email       String
+  company     String?
+  message     String
+  ipHash      String?
+  submittedAt DateTime @default(now())
+  isRead      Boolean  @default(false)
+
+  @@map("contact_submissions")
+}
+
+model VisitorSession {
+  id          Int      @id @default(autoincrement())
+  visitorId   String   @unique
+  firstSeenAt DateTime @default(now())
+  lastSeenAt  DateTime @updatedAt
+  visitCount  Int      @default(1)
+  lastPage    String?
+  ipHash      String?
+
+  @@map("visitor_sessions")
+}
+
+model TestRun {
+  id          Int      @id @default(autoincrement())
+  runDate     DateTime @default(now())
+  suiteName   String
+  total       Int
+  passed      Int
+  failed      Int
+  skipped     Int
+  durationMs  Int
+  environment String   @default("production")
+
+  @@map("test_runs")
+}

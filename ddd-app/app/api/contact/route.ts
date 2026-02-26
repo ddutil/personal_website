@@ -3,6 +3,8 @@ import { Resend } from 'resend'
 import { z } from 'zod'
 import { Ratelimit } from '@upstash/ratelimit'
 import { Redis } from '@upstash/redis'
+import { prisma } from '../../../lib/prisma'
+import { createHash } from 'crypto'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -55,6 +57,17 @@ export async function POST(req: NextRequest) {
       console.error('Resend error:', error)
       return NextResponse.json({ error: 'Failed to send email' }, { status: 500 })
     }
+
+    await prisma.contactSubmission.create({
+      data: {
+        firstName,
+        lastName,
+        email,
+        company: company ?? null,
+        message,
+        ipHash: createHash('sha256').update(ip).digest('hex'),
+      },
+    })
 
     return NextResponse.json({ success: true }, { status: 200 })
   } catch (err) {
