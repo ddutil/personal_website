@@ -9,9 +9,9 @@ export default function Navbar() {
 
   return (
     <nav className="flex items-center justify-between px-8 py-2 bg-slate-800 border-b border-white/5 text-violet-300">
-      {/* Logo/Name */}
+      {/* Logo */}
       <div className="text-xl font-bold text-inherit hover:text-violet-400 transition-colors">
-        <Link href="/">
+        <Link href="/" data-testid="nav-home-link">
           <Image src="/favicon.ico" alt="Home" width={32} height={32} />
         </Link>
       </div>
@@ -19,7 +19,7 @@ export default function Navbar() {
       {/* Links */}
       <div className="flex text-inherit font-bold divide-x divide-white/5">
         {navLinks.map((tab, idx) => (
-          <Link key={idx} href={tab.href} className="px-4 py-1.5 hover:text-violet-400 transition-colors">{tab.name}</Link>
+          <Link key={idx} href={tab.href} data-testid={`nav-link-${tab.name.toLowerCase()}`} className="px-4 py-1.5 hover:text-violet-400 transition-colors">{tab.name}</Link>
         ))}
       </div>
     </nav>

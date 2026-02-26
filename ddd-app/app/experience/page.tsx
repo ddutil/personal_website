@@ -105,7 +105,7 @@ export default function Experience() {
 
   return (
     <main className="max-w-5xl mx-auto min-h-screen text-slate-200">
-      <h1 id="experienceTitle" className="pb-30 text-violet-300 text-6xl md:text-8xl font-extrabold text-center tracking-tight">
+      <h1 data-testid="experienceTitle" className="pb-30 text-violet-300 text-6xl md:text-8xl font-extrabold text-center tracking-tight">
         {pageTitle}
       </h1>
       
@@ -115,6 +115,7 @@ export default function Experience() {
           {tabs.map((tab) => (
             <button
               key={tab.id}
+              data-testid={`experience-tab-${tab.id}`}
               onClick={() => setActiveTab(tab.id)}
               className={`w-1/3 py-5 text-2xl font-bold rounded-t-2xl transition-all duration-200
                 ${activeTab === tab.id
@@ -131,38 +132,38 @@ export default function Experience() {
           {activeTab === 'work' ? (
             <div className="w-full">
               {workHistory.map((job, jobIndex) => (
-                <div key={jobIndex} id={`job-${jobIndex}`} className="w-full bg-slate-900/40 border border-slate-700/50 p-8 rounded-xl mb-8">
+                <div key={jobIndex} data-testid={`job-${jobIndex}`} className="w-full bg-slate-900/40 border border-slate-700/50 p-8 rounded-xl mb-8">
                   {/* Company Header */}
                   <div className="flex justify-between items-baseline mb-6 border-b border-slate-800 pb-4">
-                    <h4 id={`companyHeader-${jobIndex}`} className="text-3xl font-extrabold text-violet-300">{job.company}</h4>
-                    <span id={`companyDates-${jobIndex}`} className="text-slate-500 text-lg italic">{job.startDate} — {job.endDate}</span>
+                    <h4 data-testid={`companyHeader-${jobIndex}`} className="text-3xl font-extrabold text-violet-300">{job.company}</h4>
+                    <span data-testid={`companyDates-${jobIndex}`} className="text-slate-500 text-lg italic">{job.startDate} — {job.endDate}</span>
                   </div>
 
                   {/* Stints Container */}
                   <div className="space-y-12">
                     {job.stints.map((stint, stintIndex) => (
-                      <div key={stintIndex} id={`stint-${jobIndex}-${stintIndex}`} className="relative pl-8  border-slate-700">
+                      <div key={stintIndex} data-testid={`stint-${jobIndex}-${stintIndex}`} className="relative pl-8  border-slate-700">
                         <div className="flex justify-between items-start mb-2">
                           <div>
-                            <h5 id={`stintTitle-${jobIndex}-${stintIndex}`} className="text-2xl font-bold text-blue-300">{stint.title}</h5>
-                            <p id={`stintLocation-${jobIndex}-${stintIndex}`} className="text-slate-400 font-medium">{stint.location}</p>
+                            <h5 data-testid={`stintTitle-${jobIndex}-${stintIndex}`} className="text-2xl font-bold text-blue-300">{stint.title}</h5>
+                            <p data-testid={`stintLocation-${jobIndex}-${stintIndex}`} className="text-slate-400 font-medium">{stint.location}</p>
                           </div>
                           {(stint.startDate !== job.startDate || stint.endDate !== job.endDate) && (
-                            <span id={`stintDates-${jobIndex}-${stintIndex}`} className="text-slate-500 italic text-sm">{stint.startDate} — {stint.endDate}</span>
+                            <span data-testid={`stintDates-${jobIndex}-${stintIndex}`} className="text-slate-500 italic text-sm">{stint.startDate} — {stint.endDate}</span>
                           )}
                         </div>
 
                         <ul className="mt-4 space-y-3 text-slate-200 list-disc pl-5 leading-relaxed">
                           {stint.bullets.map((bullet, bIndex) => (
-                            <li key={bIndex}>{bullet}</li>
+                            <li key={bIndex} data-testid={`stintBullet-${jobIndex}-${stintIndex}-${bIndex}`}>{bullet}</li>
                           ))}
                         </ul>
 
                         {/* My Take */}
                         {stint.takeaways && (
                           <div className="mt-6 py-4 border-y border-slate-700/60">
-                            <p className="text-xs font-semibold uppercase tracking-widest text-violet-400 mb-2">More Info</p>
-                            <p id={`stintTakeaways-${jobIndex}-${stintIndex}`} className="text-slate-400 leading-relaxed italic">{stint.takeaways}</p>
+                            <p data-testid={`stintMoreInfo-${jobIndex}-${stintIndex}`} className="text-xs font-semibold uppercase tracking-widest text-violet-400 mb-2">More Info</p>
+                            <p data-testid={`stintTakeaways-${jobIndex}-${stintIndex}`} className="text-slate-400 leading-relaxed italic">{stint.takeaways}</p>
                           </div>
                         )}
                       </div>
@@ -178,12 +179,12 @@ export default function Experience() {
               {personalProjects.map((project, idx) => (
                 <div key={idx} className="w-full bg-slate-900/40 border border-slate-700/50 p-8 rounded-xl mb-8">
                   <div className="flex justify-between items-baseline mb-4 border-b border-slate-800 pb-4">
-                    <h4 className="text-3xl font-extrabold text-violet-300">{project.title}</h4>
-                    <span className="text-slate-500 text-lg italic">{project.startDate} — {project.endDate}</span>
+                    <h4 data-testid={`projectTitle-${idx}`} className="text-3xl font-extrabold text-violet-300">{project.title}</h4>
+                    <span data-testid={`projectDates-${idx}`} className="text-slate-500 text-lg italic">{project.startDate} — {project.endDate}</span>
                   </div>
                   <ul className="mt-4 space-y-3 text-slate-200 list-disc pl-5 leading-relaxed">
                     {project.bullets.map((bullet, bIndex) => (
-                      <li key={bIndex}>{bullet}</li>
+                      <li key={bIndex} data-testid={`projectBullet-${idx}-${bIndex}`}>{bullet}</li>
                     ))}
                   </ul>
                   {/* GitHub Stats */}
@@ -193,8 +194,8 @@ export default function Experience() {
                   {/* My Take */}
                   {project.takeaways && (
                     <div className="mt-6 py-4 border-y border-slate-700/60">
-                      <p className="text-xs font-semibold uppercase tracking-widest text-violet-400 mb-2">More Info</p>
-                      <p id={`projectTakeaways-${idx}`} className="text-slate-400 leading-relaxed italic">{project.takeaways}</p>
+                      <p data-testid={`projectMoreInfo-${idx}`} className="text-xs font-semibold uppercase tracking-widest text-violet-400 mb-2">More Info</p>
+                      <p data-testid={`projectTakeaways-${idx}`} className="text-slate-400 leading-relaxed italic">{project.takeaways}</p>
                     </div>
                   )}
                 </div>
@@ -206,10 +207,10 @@ export default function Experience() {
               {educationAndCerts.map((item, idx) => (
                 <div key={idx} className="w-full bg-slate-900/40 border border-slate-700/50 p-8 rounded-xl mb-8">
                   <div className="flex justify-between items-baseline mb-4 border-b border-slate-800 pb-4">
-                    <h4 className="text-3xl font-extrabold text-violet-300">{item.institution}</h4>
-                    <span className="text-slate-500 text-lg italic">{item.date}</span>
+                    <h4 data-testid={`educationInstitution-${idx}`} className="text-3xl font-extrabold text-violet-300">{item.institution}</h4>
+                    <span data-testid={`educationDate-${idx}`} className="text-slate-500 text-lg italic">{item.date}</span>
                   </div>
-                  <p className="text-2xl font-bold text-blue-300">{item.credential}</p>
+                  <p data-testid={`educationCredential-${idx}`} className="text-2xl font-bold text-blue-300">{item.credential}</p>
                 </div>
               ))}
             </div>

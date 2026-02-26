@@ -77,16 +77,17 @@ export default function ContactPage() {
 
   return (
     <main className="max-w-2xl mx-auto min-h-screen text-slate-200 w-full">
-      <h1 id="contactTitle" className="pb-12 text-violet-300 text-6xl md:text-8xl font-bold text-center tracking-tight">
+      <h1 data-testid="contactTitle" className="pb-12 text-violet-300 text-6xl md:text-8xl font-bold text-center tracking-tight">
         {title}
       </h1>
 
       <div className="bg-slate-900/40 border border-slate-700/50 rounded-xl p-8">
         {status === 'success' ? (
           <div className="text-center">
-            <p className="text-3xl font-bold text-violet-300 mb-10">Message Sent</p>
-            <p className="text-xl">Thanks for reaching out! I'll get back to you soon.</p>
+            <p data-testid="messageSentTitle" className="text-3xl font-bold text-violet-300 mb-10">Message Sent</p>
+            <p data-testid="messageSentBody" className="text-xl">Thanks for reaching out! I'll get back to you soon.</p>
             <button
+              data-testid="messageSentBackButton"
               onClick={() => setStatus('idle')}
               className="mt-8 px-6 py-3 bg-violet-500 hover:bg-violet-600 font-bold rounded-full transition-colors"
             >
@@ -98,8 +99,9 @@ export default function ContactPage() {
             {/* Name row */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className={labelStyle}>First Name</label>
+                <label data-testid="label-firstName" className={labelStyle}>First Name</label>
                 <input
+                  data-testid="input-firstName"
                   name="firstName"
                   type="text"
                   value={form.firstName}
@@ -109,8 +111,9 @@ export default function ContactPage() {
                 {fieldErrors.firstName && <p className={errorStyle} data-testid="error-firstName">{fieldErrors.firstName}</p>}
               </div>
               <div>
-                <label className={labelStyle}>Last Name</label>
+                <label data-testid="label-lastName" className={labelStyle}>Last Name</label>
                 <input
+                  data-testid="input-lastName"
                   name="lastName"
                   type="text"
                   value={form.lastName}
@@ -123,8 +126,9 @@ export default function ContactPage() {
 
             {/* Email */}
             <div>
-              <label className={labelStyle}>Email</label>
+              <label data-testid="label-email" className={labelStyle}>Email</label>
               <input
+                data-testid="input-email"
                 name="email"
                 type="text"
                 value={form.email}
@@ -137,10 +141,11 @@ export default function ContactPage() {
 
             {/* Company (optional) */}
             <div>
-              <label className={labelStyle}>
+              <label data-testid="label-company" className={labelStyle}>
                 Company <span className="text-slate-600 font-normal">(optional)</span>
               </label>
               <input
+                data-testid="input-company"
                 name="company"
                 type="text"
                 value={form.company}
@@ -152,8 +157,9 @@ export default function ContactPage() {
 
             {/* Message */}
             <div>
-              <label className={labelStyle}>Message</label>
+              <label data-testid="label-message" className={labelStyle}>Message</label>
               <textarea
+                data-testid="input-message"
                 name="message"
                 rows={6}
                 value={form.message}
@@ -171,6 +177,7 @@ export default function ContactPage() {
             <button
               type="submit"
               disabled={status === 'loading'}
+              data-testid="submit-button"
               className="w-full py-4 bg-violet-500 hover:bg-violet-600 disabled:opacity-50 disabled:cursor-not-allowed font-bold rounded-lg transition-colors"
             >
               {status === 'loading' ? 'Sending...' : 'Send Message'}
