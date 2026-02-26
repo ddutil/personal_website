@@ -38,6 +38,12 @@ export async function POST(req: NextRequest) {
         data: {
           visitCount: { increment: 1 },
           lastPage: page ?? null,
+          // backfill columns that were null before these fields existed
+          ...(existing.country === null && country ? { country } : {}),
+          ...(existing.region === null && region ? { region } : {}),
+          ...(existing.city === null && city ? { city } : {}),
+          ...(existing.userAgent === null && ua ? { userAgent: ua } : {}),
+          ...(existing.referrer === null && referrer ? { referrer } : {}),
         },
       })
     } else {
