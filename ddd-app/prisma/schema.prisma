@@ -32,6 +32,8 @@ model VisitorSession {
   country     String?
   region      String?
   city        String?
+  userAgent   String?
+  referrer    String?
 
   @@map("visitor_sessions")
 }

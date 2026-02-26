@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No visitor ID' }, { status: 400 })
     }
 
-    const { page } = await req.json()
+    const { page, referrer } = await req.json()
     const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? '127.0.0.1'
     const ipHash = createHash('sha256').update(ip).digest('hex')
     const country = req.headers.get('x-vercel-ip-country') ?? null
@@ -26,6 +26,7 @@ export async function POST(req: NextRequest) {
     const city = req.headers.get('x-vercel-ip-city')
       ? decodeURIComponent(req.headers.get('x-vercel-ip-city')!)
       : null
+    const ua = userAgent || null
 
     const existing = await prisma.visitorSession.findUnique({
       where: { visitorId },
@@ -48,6 +49,8 @@ export async function POST(req: NextRequest) {
           country,
           region,
           city,
+          userAgent: ua,
+          referrer: referrer ?? null,
         },
       })
     }

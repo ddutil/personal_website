@@ -9,7 +9,7 @@ export default function SessionTracker() {
     fetch('/api/session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ page: pathname }),
+      body: JSON.stringify({ page: pathname, referrer: document.referrer || null }),
     }).catch(() => {
       // silently fail — tracking is non-critical
     })
