@@ -8,6 +8,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ skipped: true }, { status: 200 })
     }
 
+    if (process.env.TEST_API_KEY && req.headers.get('x-test-key') === process.env.TEST_API_KEY) {
+      return NextResponse.json({ skipped: true }, { status: 200 })
+    }
+
     const userAgent = req.headers.get('user-agent') ?? ''
     if (!userAgent.includes('Mozilla')) {
       return NextResponse.json({ skipped: true }, { status: 200 })
