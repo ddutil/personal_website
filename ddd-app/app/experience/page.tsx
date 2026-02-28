@@ -117,6 +117,7 @@ export default function Experience() {
             <button
               key={tab.id}
               data-testid={`experience-tab-${tab.id}`}
+              data-active={activeTab === tab.id ? "true" : undefined}
               onClick={() => setActiveTab(tab.id)}
               className={`w-1/3 py-5 text-2xl font-bold rounded-t-2xl transition-all duration-200
                 ${activeTab === tab.id
