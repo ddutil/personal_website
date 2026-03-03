@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, type ChangeEventHandler, type SubmitEventHandler } from 'react'
 import { usePostHog } from 'posthog-js/react'
 
 type FormState = {
@@ -29,13 +29,13 @@ export default function ContactPage() {
   const labelStyle = "block text-sm font-semibold text-slate-400 mb-1"
   const errorStyle = "text-red-400 text-xs mt-1"
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+  const handleChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (e) => {
     const { name } = e.target
     setForm(prev => ({ ...prev, [name]: e.target.value }))
     setFieldErrors(prev => ({ ...prev, [name]: undefined }))
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  const handleSubmit: SubmitEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
     setStatus('loading')
     setFieldErrors({})

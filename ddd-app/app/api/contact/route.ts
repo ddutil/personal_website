@@ -17,15 +17,18 @@ const ratelimit = new Ratelimit({
 const contactSchema = z.object({
   firstName: z.string().min(1, 'First name is required').max(50, 'First name must be 50 characters or fewer'),
   lastName: z.string().min(1, 'Last name is required').max(50, 'Last name must be 50 characters or fewer'),
-  email: z.string().email('Invalid email address').max(254, 'Email must be 254 characters or fewer'),
+  email: z.email('Invalid email address').max(254, 'Email must be 254 characters or fewer'),
   company: z.string().max(100, 'Company name must be 100 characters or fewer').optional(),
   message: z.string().min(10, 'Message must be at least 10 characters').max(2000, 'Message must be 2000 characters or fewer'),
 })
 
 export async function POST(req: NextRequest) {
   try {
+    const isAutomatedTest =
+      process.env.TEST_API_KEY && req.headers.get('x-test-key') === process.env.TEST_API_KEY
+
     const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? '127.0.0.1'
-    const { success } = await ratelimit.limit(ip)
+    const { success } = isAutomatedTest ? { success: true } : await ratelimit.limit(ip)
 
     if (!success) {
       return NextResponse.json(
@@ -39,7 +42,7 @@ export async function POST(req: NextRequest) {
 
     if (!parsed.success) {
       return NextResponse.json(
-        { error: 'Invalid form data', details: parsed.error.flatten().fieldErrors },
+        { error: 'Invalid form data', details: z.flattenError(parsed.error).fieldErrors },
         { status: 400 }
       )
     }
