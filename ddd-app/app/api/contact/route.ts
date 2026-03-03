@@ -49,16 +49,18 @@ export async function POST(req: NextRequest) {
 
     const { firstName, lastName, email, company, message } = parsed.data
 
-    const { error } = await resend.emails.send({
-      from: process.env.SENDER_EMAIL!,
-      to: process.env.RECEIVER_EMAIL!,
-      subject: `Portfolio Contact: ${firstName} ${lastName}${company ? ` (${company})` : ''}`,
-      text: `Name: ${firstName} ${lastName}\nEmail: ${email}${company ? `\nCompany: ${company}` : ''}\n\nMessage:\n${message}`.trim(),
-    })
+    if (!isAutomatedTest) {
+      const { error } = await resend.emails.send({
+        from: process.env.SENDER_EMAIL!,
+        to: process.env.RECEIVER_EMAIL!,
+        subject: `Portfolio Contact: ${firstName} ${lastName}${company ? ` (${company})` : ''}`,
+        text: `Name: ${firstName} ${lastName}\nEmail: ${email}${company ? `\nCompany: ${company}` : ''}\n\nMessage:\n${message}`.trim(),
+      })
 
-    if (error) {
-      console.error('Resend error:', error)
-      return NextResponse.json({ error: 'Failed to send email' }, { status: 500 })
+      if (error) {
+        console.error('Resend error:', error)
+        return NextResponse.json({ error: 'Failed to send email' }, { status: 500 })
+      }
     }
 
     await prisma.contactSubmission.create({
