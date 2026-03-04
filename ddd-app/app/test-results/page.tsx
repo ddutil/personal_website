@@ -2,6 +2,8 @@ import { prisma } from '@/lib/prisma'
 import TestRunCard from '../components/TestRunCard'
 import type { TestRecord, TestRunData } from './types'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata = {
   title: 'Test Results | ddutil.dev',
   description: 'Automated Playwright test run results for ddutil.dev',
@@ -30,9 +32,12 @@ export default async function TestResultsPage() {
 
   return (
     <main className="flex min-h-screen flex-col items-center text-slate-200 px-4 sm:px-6 lg:px-8">
-      <h1 data-testid="test-results-title" className="pb-12 text-violet-300 text-6xl md:text-8xl font-bold text-center tracking-tight">
+      <h1 data-testid="test-results-title" className="pb-10 text-violet-300 text-6xl md:text-8xl font-bold text-center tracking-tight">
         Test Results
       </h1>
+      <p className="text-slate-400 text-center mb-10 text-2xl">
+        Automated tests run against this site — last 7 days
+      </p>
       <div className="w-full lg:w-200 mx-auto mb-10 border border-slate-700/60 rounded-xl bg-slate-900/40 p-6 text-sm text-slate-300 leading-relaxed">
         <div className="flex flex-col gap-1 mb-4">
           <span className="text-base font-bold text-slate-200">Automated Test Coverage</span>
