@@ -97,6 +97,17 @@ export default function Home() {
         </a>
       </div>
 
+      {/* test results callout */}
+      <a
+        href="/test-results"
+        className="mb-10 flex items-center gap-2 text-sm text-slate-400 hover:text-violet-300 transition-colors"
+        data-testid="home-test-results-link"
+      >
+        <span>🤖</span>
+        <span>This site has automated tests running against it</span>
+        <span className="text-violet-400">→ View results</span>
+      </a>
+
       {/* display summary grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl w-full text-lg">
         {summaryGridNotes.map((note, idx) => (
