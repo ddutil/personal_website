@@ -48,6 +48,7 @@ model TestRun {
   skipped     Int
   durationMs  Int
   environment String   @default("production")
+  tests       Json?
 
   @@map("test_runs")
 }
