@@ -115,7 +115,10 @@ export default function TestRunCard({ run }: { run: TestRunData }) {
   const browserGroups = run.tests ? groupByBrowser(run.tests) : null
 
   return (
-    <div className="border border-slate-700 rounded-xl overflow-hidden bg-slate-900/50">
+    <div
+      className="border border-slate-700 rounded-xl overflow-hidden bg-slate-900/50 hover:bg-slate-900 cursor-pointer select-none"
+      onClick={() => run.tests && run.tests.length > 0 && setExpanded((v) => !v)}
+    >
 
       {/* ── Summary ─────────────────────────────────────────────────────── */}
       <div className="p-4">
@@ -149,27 +152,29 @@ export default function TestRunCard({ run }: { run: TestRunData }) {
           <div className="flex gap-3 text-sm">
             <span className="text-green-400">{run.passed} passed</span>
             {run.failed  > 0 && <span className="text-red-400">{run.failed} failed</span>}
-            {run.skipped > 0 && <span className="text-yellow-400">{run.skipped} skipped</span>}
+            {run.skipped > 0 && <span className="text-yellow-500">{run.skipped} skipped</span>}
           </div>
           <span className="text-xs text-slate-400">{passRate}%</span>
         </div>
 
         {/* Progress bar */}
-        <div className="h-1.5 bg-slate-700 rounded-full overflow-hidden mb-3">
-          <div
-            className={`h-full rounded-full ${allPassed ? 'bg-green-500' : 'bg-violet-500'}`}
-            style={{ width: `${passRate}%` }}
-          />
+        <div className="h-1.5 bg-slate-700 rounded-full overflow-hidden mb-3 flex">
+          {run.passed > 0 && (
+            <div className="h-full bg-green-600" style={{ width: `${(run.passed / run.total) * 100}%` }} />
+          )}
+          {run.failed > 0 && (
+            <div className="h-full bg-red-500" style={{ width: `${(run.failed / run.total) * 100}%` }} />
+          )}
+          {run.skipped > 0 && (
+            <div className="h-full bg-yellow-600" style={{ width: `${(run.skipped / run.total) * 100}%` }} />
+          )}
         </div>
 
-        {/* Expand toggle */}
+        {/* Expand hint */}
         {run.tests && run.tests.length > 0 && (
-          <button
-            onClick={() => setExpanded((v) => !v)}
-            className="text-sm text-violet-400 hover:text-violet-300 transition-colors"
-          >
+          <span className="text-sm text-violet-400">
             {expanded ? '▲ Hide tests' : `▼ Show ${run.tests.length} test results`}
-          </button>
+          </span>
         )}
       </div>
 

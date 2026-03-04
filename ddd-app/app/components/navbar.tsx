@@ -9,7 +9,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="flex items-center justify-between px-8 py-2 bg-slate-800 border-b border-white/5 text-violet-300">
+    <nav className="sticky top-0 z-50 flex items-center justify-between px-8 py-2 bg-slate-800 border-b border-white/5 text-violet-300">
       {/* Logo */}
       <div className="text-xl font-bold text-inherit hover:text-violet-400 transition-colors">
         <Link href="/" data-testid="nav-home-link">
