@@ -1,0 +1,38 @@
+# Triggers the Playwright test suite in portfolio_tests whenever Vercel
+# successfully deploys this website to production.
+#
+# Required secret in THIS repo (personal_website):
+#   TESTS_REPO_TOKEN - a GitHub fine-grained PAT with:
+#     - Repository access: portfolio_tests
+#     - Permissions: Actions (read & write)
+
+name: Trigger Playwright Tests on Deploy
+
+on:
+  deployment_status:
+
+jobs:
+  trigger-tests:
+    # Only run when Vercel marks the production deployment as successful
+    if: |
+      github.event.deployment_status.state == 'success' &&
+      github.event.deployment.environment == 'Production'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Trigger Playwright test suite
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.TESTS_REPO_TOKEN }}
+          script: |
+            await github.rest.repos.createDispatchEvent({
+              owner: 'ddutil',
+              repo: 'portfolio_tests',
+              event_type: 'vercel-deployed',
+              client_payload: {
+                deployment_url: '${{ github.event.deployment_status.target_url }}',
+                triggered_by: 'vercel-production-deploy'
+              }
+            });
+            console.log('Automated tests triggered successfully');
