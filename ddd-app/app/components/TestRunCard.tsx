@@ -187,7 +187,7 @@ export default function TestRunCard({ run }: { run: TestRunData }) {
 
         {/* Expand hint */}
         {run.tests && run.tests.length > 0 && (
-          <span className="text-sm text-violet-400">
+          <span data-testid={`test-run-expand-collapse-${run.id}`} className="text-sm text-violet-400">
             {expanded ? '▲ Hide tests' : `▼ Show ${run.tests.length} test results`}
           </span>
         )}
