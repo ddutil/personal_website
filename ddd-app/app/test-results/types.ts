@@ -15,4 +15,5 @@ export interface TestRunData {
   skipped: number
   durationMs: number
   tests: TestRecord[] | null
+  reportUrl: string | null
 }

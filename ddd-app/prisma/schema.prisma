@@ -49,6 +49,7 @@ model TestRun {
   durationMs  Int
   environment String   @default("production")
   tests       Json?
+  reportUrl   String?
 
   @@map("test_runs")
 }

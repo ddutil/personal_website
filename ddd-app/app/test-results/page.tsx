@@ -28,6 +28,7 @@ export default async function TestResultsPage() {
     skipped: run.skipped,
     durationMs: run.durationMs,
     tests: (run.tests as TestRecord[] | null) ?? null,
+    reportUrl: run.reportUrl ?? null,
   }))
 
   return (

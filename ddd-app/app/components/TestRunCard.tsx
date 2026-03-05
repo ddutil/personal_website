@@ -141,6 +141,19 @@ export default function TestRunCard({ run }: { run: TestRunData }) {
             {run.environment.toUpperCase()}
           </span>
 
+          {run.reportUrl && (
+            <a
+              href={run.reportUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="text-xs px-2 py-0.5 rounded bg-slate-700 text-slate-300 hover:text-violet-300 hover:bg-slate-600 transition-colors font-mono"
+              data-testid={`test-run-report-link-${run.id}`}
+            >
+              View {run.suiteName} Report ↗
+            </a>
+          )}
+
           <span data-testid={`test-run-duration-${run.id}`} className="text-xs text-slate-400 ml-auto">
             {fmtDuration(run.durationMs)}
           </span>
