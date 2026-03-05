@@ -68,15 +68,15 @@ function fmtDate(iso: string): string {
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
-function BrowserSection({ browser, tests }: { browser: string; tests: TestRecord[] }) {
+function BrowserSection({ browser, tests, runId }: { browser: string; tests: TestRecord[]; runId: number }) {
   const label = BROWSER_DISPLAY[browser] ?? browser
   return (
     <div className="p-4">
       <div className="flex items-center gap-2 mb-2">
-        <span className="text-xs px-2 py-0.5 rounded bg-slate-700 text-slate-300 font-mono">
+        <span data-testid={`browser-section-${browser}-label-${runId}`} className="text-xs px-2 py-0.5 rounded bg-slate-700 text-slate-300 font-mono">
           {label}
         </span>
-        <span className="text-xs text-slate-500">{tests.length} tests</span>
+        <span data-testid={`browser-section-${browser}-count-${runId}`} className="text-xs text-slate-500">{tests.length} tests</span>
       </div>
 
       <div className="space-y-0.5">
@@ -87,6 +87,7 @@ function BrowserSection({ browser, tests }: { browser: string; tests: TestRecord
             <div
               key={i}
               className={`flex items-start gap-2 rounded px-2 py-1 ${cfg.bg}`}
+              data-testid={`test-run-${runId}-browser-${browser}-test-${i}`}
             >
               <span className={`text-xs font-bold mt-0.5 ${cfg.color} w-3 shrink-0`}>
                 {cfg.icon}
@@ -117,6 +118,7 @@ export default function TestRunCard({ run }: { run: TestRunData }) {
   return (
     <div
       className="border border-slate-700 rounded-xl overflow-hidden bg-slate-900/50 hover:bg-slate-900 cursor-pointer select-none"
+      data-testid={`test-run-card-${run.id}`}
       onClick={() => run.tests && run.tests.length > 0 && setExpanded((v) => !v)}
     >
 
@@ -125,13 +127,13 @@ export default function TestRunCard({ run }: { run: TestRunData }) {
 
         {/* Badges row */}
         <div className="flex flex-wrap items-center gap-2 mb-3">
-          <span className="text-sm text-slate-400">{fmtDate(run.runDate)}</span>
+          <span data-testid={`test-run-date-${run.id}`} className="text-sm text-slate-400">{fmtDate(run.runDate)}</span>
 
-          <span className="text-xs px-2 py-0.5 rounded bg-violet-500/20 text-violet-400 font-semibold">
+          <span data-testid={`test-run-suite-${run.id}`} className="text-xs px-2 py-0.5 rounded bg-violet-500/20 text-violet-400 font-semibold">
             {run.suiteName}
           </span>
 
-          <span className={`text-xs px-2 py-0.5 rounded font-semibold ${
+          <span data-testid={`test-run-env-${run.id}`} className={`text-xs px-2 py-0.5 rounded font-semibold ${
             run.environment === 'ci'
               ? 'bg-blue-500/20 text-blue-400'
               : 'bg-slate-600/50 text-slate-400'
@@ -139,34 +141,34 @@ export default function TestRunCard({ run }: { run: TestRunData }) {
             {run.environment.toUpperCase()}
           </span>
 
-          <span className="text-xs text-slate-400 ml-auto">
+          <span data-testid={`test-run-duration-${run.id}`} className="text-xs text-slate-400 ml-auto">
             {fmtDuration(run.durationMs)}
           </span>
         </div>
 
         {/* Pass / fail counts */}
         <div className="flex items-center gap-4 mb-3">
-          <span className={`text-2xl font-bold ${allPassed ? 'text-green-400' : 'text-red-400'}`}>
+          <span data-testid={`test-run-pass-rate-${run.id}`} className={`text-2xl font-bold ${allPassed ? 'text-green-400' : 'text-red-400'}`}>
             {run.passed}/{run.total}
           </span>
           <div className="flex gap-3 text-sm">
-            <span className="text-green-400">{run.passed} passed</span>
-            {run.failed  > 0 && <span className="text-red-400">{run.failed} failed</span>}
-            {run.skipped > 0 && <span className="text-yellow-500">{run.skipped} skipped</span>}
+            <span data-testid={`test-run-passed-${run.id}`} className="text-green-400">{run.passed} passed</span>
+            {run.failed  > 0 && <span data-testid={`test-run-failed-${run.id}`} className="text-red-400">{run.failed} failed</span>}
+            {run.skipped > 0 && <span data-testid={`test-run-skipped-${run.id}`} className="text-yellow-500">{run.skipped} skipped</span>}
           </div>
-          <span className="text-xs text-slate-400">{passRate}%</span>
+          <span data-testid={`test-run-pass-rate-percent-${run.id}`} className="text-xs text-slate-400">{passRate}%</span>
         </div>
 
         {/* Progress bar */}
         <div className="h-1.5 bg-slate-700 rounded-full overflow-hidden mb-3 flex">
           {run.passed > 0 && (
-            <div className="h-full bg-green-600" style={{ width: `${(run.passed / run.total) * 100}%` }} />
+            <div data-testid={`test-run-pass-bar-${run.id}`} className="h-full bg-green-600" style={{ width: `${(run.passed / run.total) * 100}%` }} />
           )}
           {run.failed > 0 && (
-            <div className="h-full bg-red-500" style={{ width: `${(run.failed / run.total) * 100}%` }} />
+            <div data-testid={`test-run-fail-bar-${run.id}`} className="h-full bg-red-500" style={{ width: `${(run.failed / run.total) * 100}%` }} />
           )}
           {run.skipped > 0 && (
-            <div className="h-full bg-yellow-600" style={{ width: `${(run.skipped / run.total) * 100}%` }} />
+            <div data-testid={`test-run-skipped-bar-${run.id}`} className="h-full bg-yellow-600" style={{ width: `${(run.skipped / run.total) * 100}%` }} />
           )}
         </div>
 
@@ -182,7 +184,7 @@ export default function TestRunCard({ run }: { run: TestRunData }) {
       {expanded && browserGroups && (
         <div className="border-t border-slate-700 divide-y divide-slate-800">
           {Object.entries(browserGroups).map(([browser, tests]) => (
-            <BrowserSection key={browser} browser={browser} tests={tests} />
+            <BrowserSection key={browser} browser={browser} tests={tests} runId={run.id} />
           ))}
         </div>
       )}
