@@ -87,7 +87,7 @@ function BrowserSection({ browser, tests, runId }: { browser: string; tests: Tes
             <div
               key={i}
               className={`flex items-start gap-2 rounded px-2 py-1 ${cfg.bg}`}
-              data-testid={`test-run-${runId}-browser-${browser}-test-${i}`}
+              data-testid={`test-run-specific-test-runId-${runId}-browser-${browser}-test-${i}`}
             >
               <span className={`text-xs font-bold mt-0.5 ${cfg.color} w-3 shrink-0`}>
                 {cfg.icon}
