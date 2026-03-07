@@ -57,8 +57,20 @@ export async function POST(req: NextRequest) {
       const { error } = await resend.emails.send({
         from: process.env.SENDER_EMAIL!,
         to: process.env.RECEIVER_EMAIL!,
+        replyTo: email,
         subject: `Portfolio Contact: ${firstName} ${lastName}${company ? ` (${company})` : ''}`,
         text: `Name: ${firstName} ${lastName}\nEmail: ${email}${company ? `\nCompany: ${company}` : ''}\n\nMessage:\n${message}`.trim(),
+        html: `
+          <div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px;background:#f9f9f9;border-radius:8px">
+            <h2 style="margin:0 0 16px;font-size:18px;color:#111">New message from ddutil.dev</h2>
+            <table style="width:100%;border-collapse:collapse;margin-bottom:16px">
+              <tr><td style="padding:6px 0;color:#555;width:80px">Name</td><td style="padding:6px 0;color:#111">${firstName} ${lastName}</td></tr>
+              <tr><td style="padding:6px 0;color:#555">Email</td><td style="padding:6px 0;color:#111"><a href="mailto:${email}" style="color:#6d28d9">${email}</a></td></tr>
+              ${company ? `<tr><td style="padding:6px 0;color:#555">Company</td><td style="padding:6px 0;color:#111">${company}</td></tr>` : ''}
+            </table>
+            <div style="background:#fff;border:1px solid #e5e7eb;border-radius:6px;padding:16px;color:#111;white-space:pre-wrap;line-height:1.6">${message}</div>
+          </div>
+        `.trim(),
       })
 
       if (error) {
