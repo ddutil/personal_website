@@ -11,15 +11,18 @@ export default function Home() {
   const linkedInLink = "https://www.linkedin.com/in/dan-dutil-b15161a5/";
   const summaryGridNotes = [
     {
+      icon: "💼",
       title: "Experience",
       content: "10+ years spanning Quality Assurance and Software Engineering"
     },
     {
-      title: "Open To",
-      content: "Remote, QA/Automation Engineering roles starting immediately"
+      icon: "🔍",
+      title: "Status",
+      content: "Actively seeking remote QA/Automation Engineer roles — available immediately"
     },
     {
-      title: "Traits",
+      icon: "🧩",
+      title: "Characteristics",
       content: "Versatile, Meticulous, Curious, and Collaborative"
     }
   ];
@@ -31,11 +34,11 @@ export default function Home() {
     },
     {
       category: "Languages",
-      skills: ["Java", "JavaScript", "C#", "Python", "SQL"]
+      skills: ["Java", "JavaScript", "TypeScript", "C#", "Python", "SQL"]
     },
     {
       category: "CI/CD & Infrastructure",
-      skills: ["Git / GitHub", "Harness", "Jenkins", "AWS Exposure"]
+      skills: ["Git / GitHub", "Harness", "Jenkins", "GitHub Actions", "AWS Exposure"]
     },
     {
       category: "SDLC & Test Management",
@@ -112,7 +115,7 @@ export default function Home() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl w-full text-lg">
         {summaryGridNotes.map((note, idx) => (
           <div key={idx} className="p-6 bg-slate-900/50 rounded-xl border border-slate-800">
-            <h3 data-testid={`home-summary-${toTestId(note.title)}-title`} className="font-bold text-2xl text-violet-300 mb-2">{note.title}</h3>
+            <h3 data-testid={`home-summary-${toTestId(note.title)}-title`} className="font-bold text-2xl text-violet-300 mb-2">{note.icon && <span className="mr-2">{note.icon}</span>}{note.title}</h3>
             <p data-testid={`home-summary-${toTestId(note.title)}-content`}>{note.content}</p>
           </div>
         ))}
@@ -120,7 +123,7 @@ export default function Home() {
 
       {/* skills section */}
       <div className="max-w-7xl w-full mt-8 p-8 bg-slate-900/50 rounded-xl border border-slate-800">
-        <h3 data-testid="home-skills-title" className="font-bold text-violet-300 text-2xl mb-6">Skills</h3>
+        <h3 data-testid="home-skills-title" className="font-bold text-violet-300 text-2xl mb-6">🛠️ Skills</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {skillCategories.map((cat, idx) => (
             <div key={idx}>

@@ -75,17 +75,20 @@ export default function Experience() {
 
   const personalProjects = [
     {
-      title: "This Website",
+      title: "Personal Portfolio (This Website)",
       startDate: "February 2026",
       endDate: "Present",
       githubRepo: "ddutil/personal_website",
       takeaways: "I built this site with zero prior web development experience. I picked up Next.js, TypeScript, React, and Tailwind CSS from scratch over the course of this project. What started as a simple portfolio turned into a genuine deep-dive into front-end development, UI/UX design, and full-stack architecture.",
       bullets: [
-        "Engineered with Next.js (App Router) and Tailwind CSS, with a fully responsive layout optimized for both desktop and mobile",
-        "Integrated PostHog for product analytics to track real user behavior and page engagement",
+        "Stack: Next.js, Tailwind CSS, Playwright, GitHub Actions, NeonDB (Postgres), PostHog",
+        "Engineered a high-performance portfolio site with a fully responsive layout optimized for both desktop and mobile",
+        "Created Playwright automation framework that runs 61 tests against my site, including UI, API, and DB tests, with results persisted to NeonDB for historical performance tracking",
+        "Architected a CI/CD pipeline via GitHub Actions that executes tests on every code push and daily scheduled runs",
         "Built a custom contact form backed by Resend for email delivery and Upstash Redis for rate limiting to prevent spam",
-        "Leveraged GitHub Copilot throughout development for code generation, refactoring, and problem-solving",
+        "Leveraged GitHub Copilot throughout development for code refactoring and problem-solving",
         "Invested significant effort in UI/UX design, iterating on layout, typography, and spacing across screen sizes",
+        "Integrated PostHog for product analytics to track real user behavior and page engagement",
         "Open-source on GitHub — built as a living portfolio and personal playground for experimenting with modern web technologies",
       ],
     }

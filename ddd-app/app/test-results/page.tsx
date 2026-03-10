@@ -65,8 +65,8 @@ export default async function TestResultsPage() {
             ['Homepage', 'title, sections, resume PDF download, LinkedIn and contact links'],
             ['Experience', 'tab switching, active state, content visibility per tab'],
             ['Contact form', 'happy path, boundary validation, error messages, DB persistence'],
-            ['Rate limiting', 'enforces 5 requests / 10 min (Chromium only)'],
-          ].map(([label, detail]) => (
+            ['Test Results', 'page structure, card expand/collapse, test run results match DB records'],
+            ['Rate limiting', 'enforces 5 requests / 10 min (Chromium only)'],          ].map(([label, detail]) => (
             <li key={label} className="flex gap-2">
               <span className="text-violet-500 shrink-0">▸</span>
               <span><span className="text-slate-200 font-medium">{label}</span> — {detail}</span>
