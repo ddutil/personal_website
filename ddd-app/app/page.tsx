@@ -8,7 +8,7 @@ export default function Home() {
   const posthog = usePostHog()
 
   const resumeLink = "/Dutil_resume_2026.pdf";
-  const linkedInLink = "https://www.linkedin.com/in/dan-dutil-b15161a5/";
+  const linkedInLink = "https://www.linkedin.com/in/dan-dutil/";
   const summaryGridNotes = [
     {
       icon: "💼",
